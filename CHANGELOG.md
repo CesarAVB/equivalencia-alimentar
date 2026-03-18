@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.1.0...v1.2.0) (2026-03-18)
+
+### Features
+
+* **changelog:** Adiciona seção da versão 1.1.0 ao CHANGELOG.md com ([3f5c38a](https://github.com/CesarAVB/equivalencia-alimentar/commit/3f5c38a00684a6e16125474d8250b28e8fcfecb3))
+
+### Bug Fixes
+
+* **properties:** corrige a propriedade para aceitação de enums com ([f848412](https://github.com/CesarAVB/equivalencia-alimentar/commit/f848412b74558adafe5c03871e6d621913d9fd32))
+
 ## [1.1.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.0.0...v1.1.0) (2026-03-18)
 
 ### Features
