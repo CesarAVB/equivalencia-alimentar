@@ -1,26 +1,26 @@
 package br.com.sistema.alimentos.service;
 
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.checkout.SessionCreateParams;
+
 import br.com.sistema.alimentos.dtos.request.CheckoutRequest;
 import br.com.sistema.alimentos.dtos.response.CheckoutResponse;
 import br.com.sistema.alimentos.entity.Usuario;
 import br.com.sistema.alimentos.enums.PlanoTipo;
 import br.com.sistema.alimentos.repository.UsuarioRepository;
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.Customer;
-import com.stripe.model.billing.Session;
-import com.stripe.model.checkout.SessionCreateParams;
-import com.stripe.param.CustomerCreateParams;
-import com.stripe.param.billing.SessionCreateParams.FlowData;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
