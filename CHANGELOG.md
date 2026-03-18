@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.3.0...v1.4.0) (2026-03-18)
+
+### Features
+
+* implementar BootstrapAdminRunner para criação de usuário admin ao ([c260d14](https://github.com/CesarAVB/equivalencia-alimentar/commit/c260d14f0ddb701a7f4c4b6663c0a62547a348b8))
+
 ## [1.3.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.2.0...v1.3.0) (2026-03-18)
 
 ### Features
