@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.4.0...v1.5.0) (2026-03-18)
+
+### Features
+
+* adicionar anotações JdbcTypeCode para os campos id em Equivalencia ([58bedd9](https://github.com/CesarAVB/equivalencia-alimentar/commit/58bedd92639208b57dae58778221899b9cf2ca47))
+
 ## [1.4.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.3.0...v1.4.0) (2026-03-18)
 
 ### Features
