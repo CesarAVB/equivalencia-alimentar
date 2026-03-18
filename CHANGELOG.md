@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.0.0...v1.1.0) (2026-03-18)
+
+### Features
+
+* **changelog:** adiciona arquivo CHANGELOG.md com versão 1.0.0 e ([4b8958c](https://github.com/CesarAVB/equivalencia-alimentar/commit/4b8958ca9afb7756ef493f0a60f62c30df781906))
+* **gitignore:** adiciona arquivos específicos ao .gitignore ([96a763f](https://github.com/CesarAVB/equivalencia-alimentar/commit/96a763fea05f38a5b5b1f9c9aa2d7dd90570641d))
+
 ## 1.0.0 (2026-03-18)
 
 ### Features
