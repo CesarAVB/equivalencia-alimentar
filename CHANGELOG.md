@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.2.0...v1.3.0) (2026-03-18)
+
+### Features
+
+* **config:** adiciona filtros de recursos no projeto e configurações de anotação no Eclipse ([f76074a](https://github.com/CesarAVB/equivalencia-alimentar/commit/f76074a6998af71db5a4b95278cafc6c578b21cc))
+
 ## [1.2.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.1.0...v1.2.0) (2026-03-18)
 
 ### Features
