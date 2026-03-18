@@ -1,4 +1,8 @@
+# Github
+.github/agents/
+
 # Claude
+.claude/
 CLAUDE.md
 equivalencia-alimentar-frontend-context.json
 
