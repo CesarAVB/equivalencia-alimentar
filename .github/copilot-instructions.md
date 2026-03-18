@@ -1,0 +1,1 @@
+Sempre gere mensagens de commit seguindo o padrão Conventional Commits (ex: feat(incidents):, fix(websocket):, chore(resource):, docs(readme):). Use letras minúsculas, sempre em português do Brasil e seja detalhista.
