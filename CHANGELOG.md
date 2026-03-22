@@ -1,3 +1,10 @@
+## [1.9.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.8.0...v1.9.0) (2026-03-22)
+
+### Features
+
+* Adiciona documentação sobre a arquitetura e integração com Stripe ([5482fc1](https://github.com/CesarAVB/equivalencia-alimentar/commit/5482fc197126dd885ed06a64b050ed2d1774bbb6))
+* Atualiza configuração CORS e integra preços do Stripe via ([269df18](https://github.com/CesarAVB/equivalencia-alimentar/commit/269df181e348c0b06c641269010b4d0f16c61bc9))
+
 ## [1.8.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.7.0...v1.8.0) (2026-03-22)
 
 ### Features
