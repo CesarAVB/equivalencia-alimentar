@@ -7,8 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
+import jakarta.annotation.PostConstruct;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +22,8 @@ public class JwtService {
 
     @Value("${jwt.expiration:86400000}")
     private long expiration;
+
+    private SecretKey signingKey;
 
     // ====================================================
     // gerarToken - Gera um token JWT para o usuário autenticado
@@ -76,8 +78,24 @@ public class JwtService {
                 .getPayload();
     }
 
+    @PostConstruct
+    private void init() {
+        initSigningKey();
+    }
+
+    private void initSigningKey() {
+        try {
+            byte[] keyBytes = Decoders.BASE64.decode(secret);
+            this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalStateException("Propriedade 'jwt.secret' inválida: deve ser uma chave Base64 válida", ex);
+        }
+    }
+
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
+        if (signingKey == null) {
+            initSigningKey();
+        }
+        return signingKey;
     }
 }
