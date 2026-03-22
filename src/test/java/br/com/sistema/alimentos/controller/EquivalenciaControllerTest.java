@@ -60,7 +60,7 @@ class EquivalenciaControllerTest {
 
         when(equivalenciaService.listar(any())).thenReturn(new PageImpl<>(List.of(response)));
 
-        mockMvc.perform(get("/equivalencias"))
+        mockMvc.perform(get("/api/v1/equivalencias"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].alimentoOrigemDescricao").value("Banana"));
     }
@@ -77,7 +77,7 @@ class EquivalenciaControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/equivalencias")
+        mockMvc.perform(post("/api/v1/equivalencias")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isUnprocessableEntity())

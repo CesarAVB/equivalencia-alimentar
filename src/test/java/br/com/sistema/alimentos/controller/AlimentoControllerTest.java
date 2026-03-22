@@ -58,7 +58,7 @@ class AlimentoControllerTest {
 
         when(alimentoService.listar(eq(null), eq(null), any())).thenReturn(new PageImpl<>(List.of(response)));
 
-        mockMvc.perform(get("/alimentos"))
+        mockMvc.perform(get("/api/v1/alimentos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].descricao").value("Banana"));
     }
@@ -74,7 +74,7 @@ class AlimentoControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/alimentos")
+        mockMvc.perform(post("/api/v1/alimentos")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isUnprocessableEntity())

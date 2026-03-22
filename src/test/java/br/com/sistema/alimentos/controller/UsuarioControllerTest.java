@@ -57,7 +57,7 @@ class UsuarioControllerTest {
 
         when(usuarioService.listar()).thenReturn(List.of(response));
 
-        mockMvc.perform(get("/usuarios"))
+        mockMvc.perform(get("/api/v1/usuarios"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].email").value("maria@email.com"));
     }
@@ -76,7 +76,7 @@ class UsuarioControllerTest {
                 }
                 """;
 
-        mockMvc.perform(post("/usuarios")
+        mockMvc.perform(post("/api/v1/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isUnprocessableEntity())

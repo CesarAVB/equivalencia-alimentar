@@ -36,7 +36,7 @@ class PagamentoControllerTest {
     void deveRetornarOkQuandoProcessarWebhookComAssinatura() throws Exception {
         doNothing().when(stripeService).processarWebhook("{}", "sig-123");
 
-        mockMvc.perform(post("/pagamentos/webhook")
+        mockMvc.perform(post("/api/v1/pagamentos/webhook")
                         .contentType("application/json")
                         .content("{}")
                         .header("Stripe-Signature", "sig-123"))
