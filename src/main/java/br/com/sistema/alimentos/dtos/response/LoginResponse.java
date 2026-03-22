@@ -12,5 +12,5 @@ public record LoginResponse(
         String nome,
         String email,
         UsuarioTipo perfil,
-        PlanoTipo plano
+        String plano
 ) {}

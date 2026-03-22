@@ -29,16 +29,26 @@ public class AuthService {
         Usuario usuario = usuarioRepository.findByEmail(request.email())
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
-        String token = jwtService.gerarToken(usuario);
+                String token = jwtService.gerarToken(usuario);
 
-        return new LoginResponse(
-                token,
-                "Bearer",
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getEmail(),
-                usuario.getTipo(),
-                usuario.getPlano()
-        );
+                // Calcula string de exibição do plano: "trial" ou "padrão"
+                boolean isTrial = false;
+                if (usuario.getPlanoExpiraEm() != null) {
+                        isTrial = java.time.LocalDateTime.now().isBefore(usuario.getPlanoExpiraEm());
+                } else if (usuario.getCreatedAt() != null) {
+                        isTrial = java.time.LocalDateTime.now().isBefore(usuario.getCreatedAt().plusDays(30));
+                }
+
+                String planoExibicao = isTrial ? "trial" : "padrão";
+
+                return new LoginResponse(
+                                token,
+                                "Bearer",
+                                usuario.getId(),
+                                usuario.getNome(),
+                                usuario.getEmail(),
+                                usuario.getTipo(),
+                                planoExibicao
+                );
     }
 }

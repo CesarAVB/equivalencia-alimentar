@@ -51,7 +51,7 @@ class AuthControllerTest {
                 "Maria",
                 "maria@email.com",
                 UsuarioTipo.ADMIN,
-                PlanoTipo.PRO
+                "padrão"
         );
 
         when(authService.autenticar(any(LoginRequest.class))).thenReturn(response);

@@ -1,7 +1,5 @@
 package br.com.sistema.alimentos.service;
 
-import java.util.Map;
-import java.util.EnumMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +15,7 @@ import com.stripe.param.checkout.SessionCreateParams;
 import br.com.sistema.alimentos.dtos.request.CheckoutRequest;
 import br.com.sistema.alimentos.dtos.response.CheckoutResponse;
 import br.com.sistema.alimentos.entity.Usuario;
-import br.com.sistema.alimentos.enums.PlanoTipo;
+// PlanoTipo removido: sistema usa apenas o plano PADRAO
 import br.com.sistema.alimentos.repository.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,21 +33,13 @@ public class StripeService {
 
     private final UsuarioRepository usuarioRepository;
 
-        @Value("${stripe.price.basic}")
-        private String stripePriceBasic;
-
-        @Value("${stripe.price.pro}")
-        private String stripePricePro;
-
-        // Mapeamento de plano → Price ID do Stripe (carregado de application.properties)
-        private Map<PlanoTipo, String> priceIds;
+        @Value("${stripe.price.padrao}")
+        private String stripePricePadrao;
 
     @PostConstruct
     public void init() {
         Stripe.apiKey = stripeApiKey;
-        priceIds = new EnumMap<>(PlanoTipo.class);
-        priceIds.put(PlanoTipo.BASIC, stripePriceBasic);
-        priceIds.put(PlanoTipo.PRO, stripePricePro);
+        // preço padrão já carregado em `stripePricePadrao`
     }
 
     // ====================================================
@@ -63,10 +53,7 @@ public class StripeService {
 
             String customerId = obterOuCriarCustomer(usuario);
 
-            String priceId = priceIds.get(request.plano());
-            if (priceId == null) {
-                throw new IllegalArgumentException("Plano FREE não requer pagamento");
-            }
+            String priceId = stripePricePadrao;
 
             com.stripe.model.checkout.Session session = com.stripe.model.checkout.Session.create(
                     SessionCreateParams.builder()
