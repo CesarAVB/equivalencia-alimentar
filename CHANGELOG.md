@@ -1,3 +1,9 @@
+## [1.11.2](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.1...v1.11.2) (2026-03-22)
+
+### Bug Fixes
+
+* validação da propriedade 'jwt.secret' e testes para chave secreta ([f5cb50e](https://github.com/CesarAVB/equivalencia-alimentar/commit/f5cb50e794f91b6d0aa62d1d7b5ddfbbe06c981a))
+
 ## [1.11.1](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.0...v1.11.1) (2026-03-22)
 
 ### Bug Fixes
