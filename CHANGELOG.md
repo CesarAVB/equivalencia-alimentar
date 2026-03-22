@@ -1,3 +1,9 @@
+## [1.10.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.9.0...v1.10.0) (2026-03-22)
+
+### Features
+
+* Inicializa chave de assinatura JWT com método PostConstruct ([f89a256](https://github.com/CesarAVB/equivalencia-alimentar/commit/f89a256badf5e39e5b5eb03559a82989d7d618fb))
+
 ## [1.9.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.8.0...v1.9.0) (2026-03-22)
 
 ### Features
