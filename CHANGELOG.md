@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.6.0...v1.7.0) (2026-03-22)
+
+### Features
+
+* adicionar Dockerfile para construção e execução da aplicação com ([a2fbfba](https://github.com/CesarAVB/equivalencia-alimentar/commit/a2fbfbaf9b4aeca115c0032ddf9166a3e942e277))
+
 ## [1.6.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.5.0...v1.6.0) (2026-03-22)
 
 ### Features
