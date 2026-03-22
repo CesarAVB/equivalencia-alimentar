@@ -1,3 +1,10 @@
+## [1.11.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.10.0...v1.11.0) (2026-03-22)
+
+### Features
+
+* Atualiza caminhos públicos da API para incluir versão no prefixo ([480205f](https://github.com/CesarAVB/equivalencia-alimentar/commit/480205fae4e5362d9a380dd06251f3b0cdc59860))
+* Atualiza rotas da API para incluir versão no caminho ([f648112](https://github.com/CesarAVB/equivalencia-alimentar/commit/f64811209b0ce07373d877012c0d294d9c241d42))
+
 ## [1.10.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.9.0...v1.10.0) (2026-03-22)
 
 ### Features
