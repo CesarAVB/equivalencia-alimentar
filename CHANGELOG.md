@@ -1,3 +1,9 @@
+## [1.11.1](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.0...v1.11.1) (2026-03-22)
+
+### Bug Fixes
+
+* ajusta a expiração do JWT para 1 hora ([5bca414](https://github.com/CesarAVB/equivalencia-alimentar/commit/5bca4146b45e00e6bc77c0d9c1df9b9ba26bec86))
+
 ## [1.11.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.10.0...v1.11.0) (2026-03-22)
 
 ### Features
