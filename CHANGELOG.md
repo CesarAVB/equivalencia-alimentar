@@ -1,3 +1,9 @@
+## [1.8.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.7.0...v1.8.0) (2026-03-22)
+
+### Features
+
+* Adiciona suporte ao Maven Wrapper para builds reprodutíveis e ([3cf15ef](https://github.com/CesarAVB/equivalencia-alimentar/commit/3cf15ef81ed8558d83bca93bf8eecd02ff7386f8))
+
 ## [1.7.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.6.0...v1.7.0) (2026-03-22)
 
 ### Features
