@@ -1,6 +1,7 @@
 package br.com.sistema.alimentos.service;
 
 import java.util.Map;
+import java.util.EnumMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -34,15 +35,21 @@ public class StripeService {
 
     private final UsuarioRepository usuarioRepository;
 
-    // Mapeamento de plano → Price ID do Stripe (configurar no Dashboard Stripe)
-    private static final Map<PlanoTipo, String> PRICE_IDS = Map.of(
-            PlanoTipo.BASIC, "price_BASIC_CONFIGURE_NO_STRIPE",
-            PlanoTipo.PRO,   "price_PRO_CONFIGURE_NO_STRIPE"
-    );
+        @Value("${stripe.price.basic}")
+        private String stripePriceBasic;
+
+        @Value("${stripe.price.pro}")
+        private String stripePricePro;
+
+        // Mapeamento de plano → Price ID do Stripe (carregado de application.properties)
+        private Map<PlanoTipo, String> priceIds;
 
     @PostConstruct
     public void init() {
         Stripe.apiKey = stripeApiKey;
+        priceIds = new EnumMap<>(PlanoTipo.class);
+        priceIds.put(PlanoTipo.BASIC, stripePriceBasic);
+        priceIds.put(PlanoTipo.PRO, stripePricePro);
     }
 
     // ====================================================
@@ -56,7 +63,7 @@ public class StripeService {
 
             String customerId = obterOuCriarCustomer(usuario);
 
-            String priceId = PRICE_IDS.get(request.plano());
+            String priceId = priceIds.get(request.plano());
             if (priceId == null) {
                 throw new IllegalArgumentException("Plano FREE não requer pagamento");
             }
