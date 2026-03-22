@@ -62,6 +62,32 @@ class JwtServiceTest {
         assertThrows(ExpiredJwtException.class, () -> jwtService.validarToken(token, user));
     }
 
+    @Test
+    @DisplayName("Deve gerar token com secret em texto puro")
+    void deveGerarTokenComSecretTextoPuro() {
+        JwtService jwtService = new JwtService();
+        ReflectionTestUtils.setField(jwtService, "secret", "12345678901234567890123456789012");
+        ReflectionTestUtils.setField(jwtService, "expiration", 3_600_000L);
+
+        UserDetails user = User.withUsername("plain@email.com").password("x").authorities("ROLE_ADMIN").build();
+
+        String token = jwtService.gerarToken(user);
+
+        assertEquals("plain@email.com", jwtService.extrairEmail(token));
+    }
+
+    @Test
+    @DisplayName("Deve falhar quando secret tiver menos de 32 bytes")
+    void deveFalharQuandoSecretMuitoCurto() {
+        JwtService jwtService = new JwtService();
+        ReflectionTestUtils.setField(jwtService, "secret", "1234567890123456789012345678901");
+        ReflectionTestUtils.setField(jwtService, "expiration", 3_600_000L);
+
+        UserDetails user = User.withUsername("short@email.com").password("x").authorities("ROLE_ADMIN").build();
+
+        assertThrows(IllegalStateException.class, () -> jwtService.gerarToken(user));
+    }
+
     private static JwtService novoJwtService(long expiration) {
         JwtService jwtService = new JwtService();
         String secret = Base64.getEncoder().encodeToString("12345678901234567890123456789012".getBytes());

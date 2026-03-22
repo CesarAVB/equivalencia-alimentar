@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import jakarta.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,11 +85,32 @@ public class JwtService {
     }
 
     private void initSigningKey() {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException("Propriedade 'jwt.secret' não configurada");
+        }
+
+        byte[] keyBytes = deriveKeyBytes(secret.trim());
+        if (keyBytes.length < 32) {
+            throw new IllegalStateException("Propriedade 'jwt.secret' inválida: chave deve ter no mínimo 32 bytes");
+        }
+
         try {
-            byte[] keyBytes = Decoders.BASE64.decode(secret);
             this.signingKey = Keys.hmacShaKeyFor(keyBytes);
         } catch (IllegalArgumentException ex) {
-            throw new IllegalStateException("Propriedade 'jwt.secret' inválida: deve ser uma chave Base64 válida", ex);
+            throw new IllegalStateException("Propriedade 'jwt.secret' inválida para HMAC", ex);
+        }
+    }
+
+    private byte[] deriveKeyBytes(String rawSecret) {
+        // Tenta Base64; se o resultado ficar curto, cai para texto puro UTF-8
+        try {
+            byte[] decoded = Decoders.BASE64.decode(rawSecret);
+            if (decoded.length >= 32) {
+                return decoded;
+            }
+            return rawSecret.getBytes(StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException ex) {
+            return rawSecret.getBytes(StandardCharsets.UTF_8);
         }
     }
 
