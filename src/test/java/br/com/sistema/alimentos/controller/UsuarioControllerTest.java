@@ -50,7 +50,7 @@ class UsuarioControllerTest {
                 "123.456.789-00",
                 UsuarioTipo.ADMIN,
                 true,
-                PlanoTipo.PRO,
+                PlanoTipo.PADRAO,
                 null,
                 LocalDateTime.now()
         );

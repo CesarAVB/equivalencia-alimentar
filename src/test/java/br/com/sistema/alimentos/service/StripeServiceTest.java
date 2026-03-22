@@ -56,33 +56,20 @@ class StripeServiceTest {
     @DisplayName("Deve lançar exceção ao criar checkout quando usuário não existir")
     void deveLancarExcecaoAoCriarCheckoutQuandoUsuarioNaoExistir() {
         UUID usuarioId = UUID.randomUUID();
-        CheckoutRequest request = new CheckoutRequest(PlanoTipo.BASIC, "https://ok", "https://cancel");
+        CheckoutRequest request = new CheckoutRequest("https://ok", "https://cancel");
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> stripeService.criarCheckoutSession(usuarioId, request));
     }
 
-    @Test
-    @DisplayName("Deve lançar exceção quando plano FREE for enviado no checkout")
-    void deveLancarExcecaoQuandoPlanoFreeForEnviadoNoCheckout() {
-        UUID usuarioId = UUID.randomUUID();
-        Usuario usuario = usuario(usuarioId, "cus_123");
-        CheckoutRequest request = new CheckoutRequest(PlanoTipo.FREE, "https://ok", "https://cancel");
-
-        when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
-
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> stripeService.criarCheckoutSession(usuarioId, request));
-
-        assertTrue(ex.getMessage().contains("FREE"));
-    }
+    
 
     @Test
     @DisplayName("Deve criar checkout session quando dados forem válidos")
     void deveCriarCheckoutSessionQuandoDadosForemValidos() throws Exception {
         UUID usuarioId = UUID.randomUUID();
         Usuario usuario = usuario(usuarioId, "cus_123");
-        CheckoutRequest request = new CheckoutRequest(PlanoTipo.BASIC, "https://ok", "https://cancel");
+        CheckoutRequest request = new CheckoutRequest("https://ok", "https://cancel");
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
 
@@ -171,7 +158,7 @@ class StripeServiceTest {
     void deveCriarCustomerQuandoUsuarioNaoTiverStripeCustomerId() throws Exception {
         UUID usuarioId = UUID.randomUUID();
         Usuario usuario = usuario(usuarioId, null);
-        CheckoutRequest request = new CheckoutRequest(PlanoTipo.BASIC, "https://ok", "https://cancel");
+        CheckoutRequest request = new CheckoutRequest("https://ok", "https://cancel");
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
         when(usuarioRepository.save(any(Usuario.class))).thenAnswer(i -> i.getArgument(0));
@@ -204,7 +191,7 @@ class StripeServiceTest {
                 .email("usuario@email.com")
                 .senha("senha")
                 .tipo(UsuarioTipo.ADMIN)
-                .plano(PlanoTipo.FREE)
+                .plano(PlanoTipo.PADRAO)
                 .ativo(true)
                 .stripeCustomerId(stripeCustomerId)
                 .build();

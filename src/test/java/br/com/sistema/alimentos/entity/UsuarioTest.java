@@ -20,7 +20,7 @@ class UsuarioTest {
                 .email("admin@email.com")
                 .senha("senha")
                 .tipo(UsuarioTipo.ADMIN)
-                .plano(PlanoTipo.PRO)
+                .plano(PlanoTipo.PADRAO)
                 .ativo(true)
                 .build();
 

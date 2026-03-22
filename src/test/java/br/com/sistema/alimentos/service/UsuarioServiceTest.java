@@ -175,7 +175,7 @@ class UsuarioServiceTest {
                 .cpf("123.456.789-00")
                 .tipo(UsuarioTipo.ADMIN)
                 .ativo(true)
-                .plano(PlanoTipo.FREE)
+                .plano(PlanoTipo.PADRAO)
                 .build();
     }
 }
