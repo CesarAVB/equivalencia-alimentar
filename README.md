@@ -24,6 +24,7 @@ API REST para gestão de equivalências nutricionais entre alimentos, com autent
 - [Variáveis de ambiente](#variáveis-de-ambiente)
 - [Testes](#testes)
 - [Exemplos de requisições](#exemplos-de-requisições)
+- [Troubleshooting (Prod)](#troubleshooting-prod)
 
 ---
 
@@ -60,21 +61,24 @@ API REST para gestão de equivalências nutricionais entre alimentos, com autent
    cd equivalencia-alimentar-backend
    ```
 
-2. Crie o arquivo `src/main/resources/application-local.properties` com suas credenciais:
+2. Configure o arquivo `src/main/resources/application-local.properties` com suas credenciais:
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/equivalencia_alimentar?createDatabaseIfNotExist=true
+  spring.datasource.url=jdbc:mysql://localhost:3306/equivalencia_alimentar?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
    spring.datasource.username=root
    spring.datasource.password=sua_senha
+  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-   jwt.secret=gere_com_openssl_rand_base64_64
+  # Aceita Base64 forte OU string textual com no minimo 32 caracteres
+  jwt.secret=gere_um_secret_com_32_ou_mais_caracteres
    jwt.expiration=86400000
 
-   stripe.api-key=sk_test_...
-   stripe.webhook-secret=whsec_...
+  stripe.api.key=sk_test_...
+  stripe.webhook.secret=whsec_...
+  stripe.price.padrao=price_...
 
-   cors.allowed-origins=http://localhost:4200
+  app.cors.allowed-origins=http://localhost:4200,http://localhost:5173
    ```
-   > Gere o JWT secret com: `openssl rand -base64 64`
+  > Dica: para gerar secret forte em Base64 use `openssl rand -base64 64`.
 
 3. Execute:
    ```bash
@@ -136,7 +140,7 @@ A tabela é pré-populada com **95 alimentos** via migration `V2__seed_alimentos
 | `tipo` | VARCHAR(50) | `ADMIN`, `NUTRICIONISTA` ou `PACIENTE` |
 | `ativo` | TINYINT(1) | `1` = ativo, `0` = desativado |
 | `stripe_customer_id` | VARCHAR(255) | ID do cliente no Stripe |
-| `plano` | VARCHAR(50) | `FREE`, `BASIC` ou `PRO` |
+| `plano` | VARCHAR(50) | `PADRAO` |
 | `plano_expira_em` | DATETIME | Data de vencimento do plano |
 
 ### `equivalencias`
@@ -159,7 +163,12 @@ Todas as rotas — exceto `POST /auth/login` e `POST /pagamentos/webhook` — ex
 Authorization: Bearer <token>
 ```
 
-O token é obtido via `POST /api/v1/auth/login` e expira em **24 h** por padrão (configurável via `jwt.expiration`).
+O token é obtido via `POST /api/v1/auth/login` e expira conforme `jwt.expiration`.
+
+Resposta de login:
+
+- O campo `plano` é uma **string de exibição**.
+- Valores atuais: `trial` (janela de 30 dias desde a criação/expiração configurada) ou `padrão`.
 
 ---
 
@@ -211,9 +220,9 @@ A documentação completa com schemas de request/response está disponível no S
 
 Antes de usar os endpoints de pagamento:
 
-1. Configure os Price IDs no `StripeService.java` (constante `PRICE_IDS`) com os IDs dos planos `BASIC` e `PRO` do seu dashboard.
+1. Configure `stripe.price.padrao` (em local/prod) com o Price ID do plano único no Stripe.
 2. Configure o webhook no [Stripe Dashboard](https://dashboard.stripe.com/webhooks) apontando para `POST /api/v1/pagamentos/webhook`.
-3. Copie o `whsec_...` para `stripe.webhook-secret` no `application-local.properties`.
+3. Copie o `whsec_...` para `stripe.webhook.secret` no `application-local.properties` ou variável `STRIPE_WEBHOOK_SECRET` em produção.
 
 ---
 
@@ -238,10 +247,11 @@ Usadas em produção via `application-prod.properties`:
 | `DATASOURCE_USERNAME` | Usuário do banco |
 | `DATASOURCE_PASSWORD` | Senha do banco |
 | `CORS_ALLOWED_ORIGINS` | Origens permitidas (separadas por vírgula) |
-| `JWT_SECRET` | Chave Base64 para assinar tokens JWT |
-| `JWT_EXPIRATION` | Expiração do token em ms (padrão: `86400000` = 24 h) |
+| `JWT_SECRET` | Secret para assinar JWT (Base64 forte ou texto >= 32 caracteres) |
+| `JWT_EXPIRATION` | Expiração do token em ms (padrão em prod: `3600000` = 1 h) |
 | `STRIPE_API_KEY` | Chave secreta do Stripe (`sk_live_...`) |
 | `STRIPE_WEBHOOK_SECRET` | Secret do webhook Stripe (`whsec_...`) |
+| `STRIPE_PRICE_PADRAO` | Price ID do plano único no Stripe (`price_...`) |
 
 ---
 
@@ -309,5 +319,20 @@ curl -X PATCH http://localhost:8080/api/v1/usuarios/<uuid>/desativar \
 curl -X POST http://localhost:8080/api/v1/pagamentos/checkout \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
-  -d '{"plano": "PRO", "successUrl": "http://localhost:4200/sucesso", "cancelUrl": "http://localhost:4200/planos"}'
+  -d '{"successUrl": "http://localhost:4200/sucesso", "cancelUrl": "http://localhost:4200/planos"}'
+```
+
+---
+
+## Troubleshooting (Prod)
+
+Erros comuns de inicialização no profile `prod`:
+
+- `Could not resolve placeholder 'JWT_SECRET'`: variável `JWT_SECRET` não definida no ambiente.
+- `Driver ... does not accept jdbcUrl, ${DATASOURCE_URL}`: variável `DATASOURCE_URL` ausente ou com valor literal `${DATASOURCE_URL}`.
+
+Exemplo de `DATASOURCE_URL` válido:
+
+```text
+jdbc:mysql://SEU_HOST:3306/db_equivalencia_alimentar?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
 ```
