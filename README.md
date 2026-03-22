@@ -1,4 +1,4 @@
-# Equivalência Alimentar — Backend
+# Equivalência Alimentar - Backend
 
 API REST para gestão de equivalências nutricionais entre alimentos, com autenticação JWT, controle de acesso por papel, assinaturas via Stripe e banco de dados pré-populado com 95 alimentos.
 

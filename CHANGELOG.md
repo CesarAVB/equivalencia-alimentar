@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.5.0...v1.6.0) (2026-03-22)
+
+### Features
+
+* atualizar endpoints dos controladores para incluir versão na API ([1419e86](https://github.com/CesarAVB/equivalencia-alimentar/commit/1419e860c16ac6dae2477ae736d45b56590fdabf))
+
 ## [1.5.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.4.0...v1.5.0) (2026-03-18)
 
 ### Features
