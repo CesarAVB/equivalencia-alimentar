@@ -1,3 +1,9 @@
+## [1.12.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.2...v1.12.0) (2026-03-22)
+
+### Features
+
+* adiciona script de migração para normalizar planos legados ([c763629](https://github.com/CesarAVB/equivalencia-alimentar/commit/c763629f5d697abc917e146db1d1c2aa8fd10adf))
+
 ## [1.11.2](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.1...v1.11.2) (2026-03-22)
 
 ### Bug Fixes
