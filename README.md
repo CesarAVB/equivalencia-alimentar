@@ -233,6 +233,7 @@ Antes de usar os endpoints de pagamento:
 | `V1__init.sql` | Criação das tabelas `alimentos`, `usuarios` e `equivalencias` |
 | `V2__seed_alimentos.sql` | Inserção dos 95 alimentos iniciais (5 grupos alimentares) |
 | `V3__add_cpf_usuario.sql` | Adição da coluna `cpf` na tabela `usuarios` |
+| `V4__migrate_plano_padrao.sql` | Conversão de planos legados (`FREE/BASIC/PRO`) para `PADRAO` |
 
 ---
 
