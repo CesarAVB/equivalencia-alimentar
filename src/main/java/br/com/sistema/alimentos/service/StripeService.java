@@ -39,7 +39,7 @@ public class StripeService {
     @PostConstruct
     public void init() {
         Stripe.apiKey = stripeApiKey;
-        // preço padrão já carregado em `stripePricePadrao`
+        validarPriceIdPadrao(stripePricePadrao);
     }
 
     // ====================================================
@@ -53,7 +53,7 @@ public class StripeService {
 
             String customerId = obterOuCriarCustomer(usuario);
 
-            String priceId = stripePricePadrao;
+            String priceId = obterPriceIdPadraoValidado();
 
             com.stripe.model.checkout.Session session = com.stripe.model.checkout.Session.create(
                     SessionCreateParams.builder()
@@ -129,7 +129,22 @@ public class StripeService {
     }
 
     private void processarAssinaturaCancelada(com.stripe.model.Event event) {
-        // Implementar lógica de reversão para plano FREE após cancelamento
+        // Implementar lógica de reversão para o estado após cancelamento
+    }
+
+    private String obterPriceIdPadraoValidado() {
+        validarPriceIdPadrao(stripePricePadrao);
+        return stripePricePadrao;
+    }
+
+    private void validarPriceIdPadrao(String priceId) {
+        if (priceId == null || priceId.isBlank()) {
+            throw new IllegalStateException("Configuração inválida: 'stripe.price.padrao' não foi definida");
+        }
+
+        if (!priceId.startsWith("price_")) {
+            throw new IllegalStateException("Configuração inválida: 'stripe.price.padrao' deve ser um Price ID do Stripe (ex.: price_...). Valor atual parece ser um Product ID");
+        }
     }
 
     private String obterOuCriarCustomer(Usuario usuario) throws StripeException {

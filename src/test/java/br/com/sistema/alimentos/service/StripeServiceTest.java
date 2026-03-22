@@ -13,6 +13,7 @@ import com.stripe.model.Event;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,7 +26,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -42,10 +42,16 @@ class StripeServiceTest {
     @InjectMocks
     private StripeService stripeService;
 
+    @BeforeEach
+    void setUp() {
+        ReflectionTestUtils.setField(stripeService, "stripePricePadrao", "price_test_123");
+    }
+
     @Test
     @DisplayName("Deve inicializar Stripe API key")
     void deveInicializarStripeApiKey() {
         ReflectionTestUtils.setField(stripeService, "stripeApiKey", "sk_test_123");
+        ReflectionTestUtils.setField(stripeService, "stripePricePadrao", "price_test_123");
 
         stripeService.init();
 

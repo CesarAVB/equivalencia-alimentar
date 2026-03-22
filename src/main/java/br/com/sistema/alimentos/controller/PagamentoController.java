@@ -25,9 +25,7 @@ public class PagamentoController {
     // ====================================================
     @PostMapping("/checkout")
     @Operation(summary = "Criar sessão de checkout no Stripe")
-    public ResponseEntity<CheckoutResponse> checkout(
-            @AuthenticationPrincipal Usuario usuario,
-            @RequestBody @Valid CheckoutRequest request) {
+    public ResponseEntity<CheckoutResponse> checkout(@AuthenticationPrincipal Usuario usuario, @RequestBody @Valid CheckoutRequest request) {
         return ResponseEntity.ok(stripeService.criarCheckoutSession(usuario.getId(), request));
     }
 
@@ -36,9 +34,7 @@ public class PagamentoController {
     // ====================================================
     @GetMapping("/portal")
     @Operation(summary = "Criar sessão do portal do cliente Stripe")
-    public ResponseEntity<CheckoutResponse> portal(
-            @AuthenticationPrincipal Usuario usuario,
-            @RequestParam String returnUrl) {
+    public ResponseEntity<CheckoutResponse> portal(@AuthenticationPrincipal Usuario usuario, @RequestParam String returnUrl) {
         return ResponseEntity.ok(stripeService.criarPortalSession(usuario.getId(), returnUrl));
     }
 
@@ -47,9 +43,7 @@ public class PagamentoController {
     // ====================================================
     @PostMapping("/webhook")
     @Operation(summary = "Webhook do Stripe para processar eventos de pagamento", hidden = true)
-    public ResponseEntity<Void> webhook(
-            @RequestBody String payload,
-            @RequestHeader("Stripe-Signature") String sigHeader) {
+    public ResponseEntity<Void> webhook(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
         stripeService.processarWebhook(payload, sigHeader);
         return ResponseEntity.ok().build();
     }
