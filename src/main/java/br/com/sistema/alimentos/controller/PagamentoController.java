@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/pagamentos")
+@RequestMapping("/api/v1/pagamentos")
 @RequiredArgsConstructor
 @Tag(name = "Pagamentos", description = "Integração com Stripe para assinaturas e pagamentos")
 public class PagamentoController {

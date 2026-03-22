@@ -18,7 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/alimentos")
+@RequestMapping("/api/v1/alimentos")
 @RequiredArgsConstructor
 @Tag(name = "Alimentos", description = "Catálogo de alimentos e informações nutricionais")
 public class AlimentoController {

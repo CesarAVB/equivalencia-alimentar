@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/equivalencias")
+@RequestMapping("/api/v1/equivalencias")
 @RequiredArgsConstructor
 @Tag(name = "Equivalências", description = "Equivalências nutricionais entre alimentos")
 public class EquivalenciaController {
