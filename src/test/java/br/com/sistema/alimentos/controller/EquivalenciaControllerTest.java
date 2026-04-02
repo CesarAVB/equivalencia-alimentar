@@ -54,6 +54,8 @@ class EquivalenciaControllerTest {
                 2,
                 "Maçã",
                 new BigDecimal("1.20"),
+                new BigDecimal("100"),
+                new BigDecimal("120.00"),
                 "Troca comum",
                 LocalDateTime.now()
         );

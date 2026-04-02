@@ -61,7 +61,7 @@ class EquivalenciaServiceTest {
     void deveBuscarEquivalenciasPorAlimentoOrigem() {
         when(equivalenciaRepository.findByAlimentoOrigemId(1)).thenReturn(List.of(equivalencia("Banana", "Mamão")));
 
-        List<EquivalenciaResponse> resultado = equivalenciaService.buscarPorAlimentoOrigem(1);
+        List<EquivalenciaResponse> resultado = equivalenciaService.buscarPorAlimentoOrigem(1, new BigDecimal("100"));
 
         assertEquals(1, resultado.size());
         assertEquals("Mamão", resultado.getFirst().alimentoDestinoDescricao());
