@@ -11,6 +11,8 @@ public record EquivalenciaResponse(
         Integer alimentoDestinoId,
         String alimentoDestinoDescricao,
         BigDecimal fatorEquivalencia,
+        BigDecimal quantidadeGramas,
+        BigDecimal quantidadeDestinoGramas,
         String observacao,
         LocalDateTime createdAt
 ) {}

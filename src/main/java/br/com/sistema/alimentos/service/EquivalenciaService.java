@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,15 +30,15 @@ public class EquivalenciaService {
     // listar - Lista todas as equivalências com paginação
     // ====================================================
     public Page<EquivalenciaResponse> listar(Pageable pageable) {
-        return equivalenciaRepository.findAll(pageable).map(this::toResponse);
+        return equivalenciaRepository.findAll(pageable).map(e -> toResponse(e, BigDecimal.valueOf(100)));
     }
 
     // ====================================================
-    // buscarPorAlimentoOrigem - Lista equivalências de um alimento de origem
+    // buscarPorAlimentoOrigem - Lista equivalências com cálculo dinâmico de gramas
     // ====================================================
-    public List<EquivalenciaResponse> buscarPorAlimentoOrigem(Integer alimentoOrigemId) {
+    public List<EquivalenciaResponse> buscarPorAlimentoOrigem(Integer alimentoOrigemId, BigDecimal quantidadeGramas) {
         return equivalenciaRepository.findByAlimentoOrigemId(alimentoOrigemId).stream()
-                .map(this::toResponse)
+                .map(e -> toResponse(e, quantidadeGramas))
                 .toList();
     }
 
@@ -44,7 +46,7 @@ public class EquivalenciaService {
     // buscarPorId - Retorna uma equivalência pelo ID
     // ====================================================
     public EquivalenciaResponse buscarPorId(UUID id) {
-        return toResponse(encontrarPorId(id));
+        return toResponse(encontrarPorId(id), BigDecimal.valueOf(100));
     }
 
     // ====================================================
@@ -65,7 +67,7 @@ public class EquivalenciaService {
                 .observacao(request.observacao())
                 .build();
 
-        return toResponse(equivalenciaRepository.save(equivalencia));
+        return toResponse(equivalenciaRepository.save(equivalencia), BigDecimal.valueOf(100));
     }
 
     // ====================================================
@@ -86,7 +88,7 @@ public class EquivalenciaService {
         equivalencia.setFatorEquivalencia(request.fatorEquivalencia());
         equivalencia.setObservacao(request.observacao());
 
-        return toResponse(equivalenciaRepository.save(equivalencia));
+        return toResponse(equivalenciaRepository.save(equivalencia), BigDecimal.valueOf(100));
     }
 
     // ====================================================
@@ -105,7 +107,11 @@ public class EquivalenciaService {
                 .orElseThrow(() -> new EntityNotFoundException("Equivalência não encontrada: " + id));
     }
 
-    private EquivalenciaResponse toResponse(Equivalencia e) {
+    private EquivalenciaResponse toResponse(Equivalencia e, BigDecimal quantidadeGramas) {
+        BigDecimal quantidadeDestino = quantidadeGramas
+                .multiply(e.getFatorEquivalencia())
+                .setScale(2, RoundingMode.HALF_UP);
+
         return new EquivalenciaResponse(
                 e.getId(),
                 e.getAlimentoOrigem().getId(),
@@ -113,6 +119,8 @@ public class EquivalenciaService {
                 e.getAlimentoDestino().getId(),
                 e.getAlimentoDestino().getDescricao(),
                 e.getFatorEquivalencia(),
+                quantidadeGramas,
+                quantidadeDestino,
                 e.getObservacao(),
                 e.getCreatedAt()
         );

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +38,9 @@ public class EquivalenciaController {
     @GetMapping("/alimento/{alimentoOrigemId}")
     @Operation(summary = "Buscar equivalências pelo alimento de origem")
     public ResponseEntity<List<EquivalenciaResponse>> buscarPorAlimentoOrigem(
-            @PathVariable Integer alimentoOrigemId) {
-        return ResponseEntity.ok(equivalenciaService.buscarPorAlimentoOrigem(alimentoOrigemId));
+            @PathVariable Integer alimentoOrigemId,
+            @RequestParam(defaultValue = "100") BigDecimal quantidadeGramas) {
+        return ResponseEntity.ok(equivalenciaService.buscarPorAlimentoOrigem(alimentoOrigemId, quantidadeGramas));
     }
 
     @GetMapping("/{id}")
