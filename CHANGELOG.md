@@ -1,3 +1,10 @@
+## [1.13.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.12.0...v1.13.0) (2026-04-02)
+
+### Features
+
+* adiciona cálculo dinâmico de quantidade de gramas nas equivalências ([f90f163](https://github.com/CesarAVB/equivalencia-alimentar/commit/f90f163abd36e982ca455015823774302a81f36b))
+* adiciona filtro de logging para requisições do frontend e configurações de log ([6267174](https://github.com/CesarAVB/equivalencia-alimentar/commit/62671747ca073d88ec2e10b6a1b2341ac3a7a934))
+
 ## [1.12.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.11.2...v1.12.0) (2026-03-22)
 
 ### Features
