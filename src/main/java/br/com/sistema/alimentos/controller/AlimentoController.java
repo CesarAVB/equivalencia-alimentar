@@ -3,6 +3,10 @@ package br.com.sistema.alimentos.controller;
 import br.com.sistema.alimentos.dtos.request.AtualizarAlimentoRequest;
 import br.com.sistema.alimentos.dtos.request.CriarAlimentoRequest;
 import br.com.sistema.alimentos.dtos.response.AlimentoResponse;
+import br.com.sistema.alimentos.dtos.response.CatalogoAlimentosResponse;
+import br.com.sistema.alimentos.dtos.response.EquivalenciaDinamicaResponse;
+
+import java.math.BigDecimal;
 import br.com.sistema.alimentos.enums.GrupoAlimentar;
 import br.com.sistema.alimentos.service.AlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +29,12 @@ public class AlimentoController {
 
     private final AlimentoService alimentoService;
 
+    @GetMapping("/catalogo")
+    @Operation(summary = "Retorna todos os alimentos agrupados por grupo alimentar")
+    public ResponseEntity<CatalogoAlimentosResponse> catalogar() {
+        return ResponseEntity.ok(alimentoService.catalogar());
+    }
+
     @GetMapping
     @Operation(summary = "Listar alimentos com filtros opcionais de descrição e grupo")
     public ResponseEntity<Page<AlimentoResponse>> listar(
@@ -38,6 +48,14 @@ public class AlimentoController {
     @Operation(summary = "Buscar alimento por ID")
     public ResponseEntity<AlimentoResponse> buscarPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(alimentoService.buscarPorId(id));
+    }
+
+    @GetMapping("/{id}/equivalencias")
+    @Operation(summary = "Calcular equivalências calóricas para uma quantidade informada")
+    public ResponseEntity<EquivalenciaDinamicaResponse> calcularEquivalencias(
+            @PathVariable Integer id,
+            @RequestParam(defaultValue = "100") BigDecimal quantidadeGramas) {
+        return ResponseEntity.ok(alimentoService.calcularEquivalencias(id, quantidadeGramas));
     }
 
     @PostMapping

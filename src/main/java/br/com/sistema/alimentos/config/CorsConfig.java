@@ -4,8 +4,12 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import br.com.sistema.alimentos.enums.GrupoAlimentar;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -43,5 +47,10 @@ public class CorsConfig implements WebMvcConfigurer {
 				.maxAge(3600);
 
 		log.info("✅ CORS inicializado com sucesso!");
+	}
+
+	@Override
+	public void addFormatters(@NonNull FormatterRegistry registry) {
+		registry.addConverter(String.class, GrupoAlimentar.class, GrupoAlimentar::fromValor);
 	}
 }
