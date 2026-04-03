@@ -31,16 +31,6 @@ public class AuthService {
 
                 String token = jwtService.gerarToken(usuario);
 
-                // Calcula string de exibição do plano: "trial" ou "padrão"
-                boolean isTrial = false;
-                if (usuario.getPlanoExpiraEm() != null) {
-                        isTrial = java.time.LocalDateTime.now().isBefore(usuario.getPlanoExpiraEm());
-                } else if (usuario.getCreatedAt() != null) {
-                        isTrial = java.time.LocalDateTime.now().isBefore(usuario.getCreatedAt().plusDays(30));
-                }
-
-                String planoExibicao = isTrial ? "trial" : "padrão";
-
                 return new LoginResponse(
                                 token,
                                 "Bearer",
@@ -48,7 +38,7 @@ public class AuthService {
                                 usuario.getNome(),
                                 usuario.getEmail(),
                                 usuario.getTipo(),
-                                planoExibicao
+                                usuario.getPlano().name().toLowerCase()
                 );
     }
 }

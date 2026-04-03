@@ -52,7 +52,7 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "plano", nullable = false)
     @Builder.Default
-    private PlanoTipo plano = PlanoTipo.PADRAO;
+    private PlanoTipo plano = PlanoTipo.TRIAL;
 
     @Column(name = "plano_expira_em")
     private LocalDateTime planoExpiraEm;
