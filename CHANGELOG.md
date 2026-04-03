@@ -1,3 +1,9 @@
+## [1.15.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.14.0...v1.15.0) (2026-04-03)
+
+### Features
+
+* altera plano padrão para TRIAL e ajusta exibição no login ([2244392](https://github.com/CesarAVB/equivalencia-alimentar/commit/22443924996d5e685c0baf8e96bafb1a1b67f64b))
+
 ## [1.14.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.13.0...v1.14.0) (2026-04-03)
 
 ### Features
