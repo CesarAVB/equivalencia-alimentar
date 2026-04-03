@@ -1,3 +1,9 @@
+## [1.16.1](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.16.0...v1.16.1) (2026-04-03)
+
+### Bug Fixes
+
+* corrige valor padrão e remove teste de equivalência ([ed4bcaf](https://github.com/CesarAVB/equivalencia-alimentar/commit/ed4bcaf368fa2dedb90f78d93f6f0f19aaf8acfd))
+
 ## [1.16.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.15.0...v1.16.0) (2026-04-03)
 
 ### Features
