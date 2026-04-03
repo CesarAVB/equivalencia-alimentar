@@ -1,3 +1,9 @@
+## [1.16.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.15.0...v1.16.0) (2026-04-03)
+
+### Features
+
+* adiciona data de expiração do plano TRIAL na resposta de login e no usuário ([07269ab](https://github.com/CesarAVB/equivalencia-alimentar/commit/07269abb7c8fa49535743e62dd66c0ee3bfe2fdf))
+
 ## [1.15.0](https://github.com/CesarAVB/equivalencia-alimentar/compare/v1.14.0...v1.15.0) (2026-04-03)
 
 ### Features
