@@ -1,8 +1,8 @@
 package br.com.sistema.alimentos.dtos.response;
 
-import br.com.sistema.alimentos.enums.PlanoTipo;
 import br.com.sistema.alimentos.enums.UsuarioTipo;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record LoginResponse(
@@ -12,5 +12,6 @@ public record LoginResponse(
         String nome,
         String email,
         UsuarioTipo perfil,
-        String plano
+        String plano,
+        LocalDateTime planoExpiraEm
 ) {}

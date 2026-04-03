@@ -38,7 +38,8 @@ public class AuthService {
                                 usuario.getNome(),
                                 usuario.getEmail(),
                                 usuario.getTipo(),
-                                usuario.getPlano().name().toLowerCase()
+                                usuario.getPlano().name().toLowerCase(),
+                                usuario.getPlanoExpiraEm()
                 );
     }
 }
